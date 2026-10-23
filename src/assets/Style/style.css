@@ -1,0 +1,870 @@
+/* ---------- FONTS ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap');
+
+
+/* ---------- BASIC RESET ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fafafb;      /* navy blue */
+    font-family: 'Jost', sans-serif;
+}
+
+
+/* ---------- WHOLE PAGE ---------- */
+.perfume-page {
+    width: 100%;
+    color: white;
+}
+
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+    position: absolute;       /* hero mela floating-a irukkum */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;              /* overlay mela theriya */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 60px;
+}
+
+.logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 4px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    transition: 0.3s;
+}
+
+/* mouse vachaa white-ah kaattum, kela line varum */
+.nav-links a:hover {
+    opacity: 1;
+    border-bottom: 1px solid white;
+    padding-bottom: 4px;
+}
+
+
+/* ---------- HERO SECTION ---------- */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;                /* full screen height */
+    display: flex;
+    align-items: center;
+    background-size: cover;       /* image full-ah nirayum */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f2f3f4;    /* image varala-na navy blue theriyum */
+    overflow: hidden;
+}
+
+/* navy blue shade image mela - left la dark, right la konjam light */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(30, 18, 11, 0.75), rgba(136, 69, 17, 0.89));
+}
+
+
+/* ---------- SMOKE (three.js canvas) ---------- */
+/* hero kulla indha box thaan smoke-ah vechirukkum */
+.smoke-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;                /* overlay mela, text + cards kku kela */
+    pointer-events: none;      /* smoke mela click panna button-ku poganum */
+}
+
+
+/* ---------- HERO LEFT (text) ---------- */
+.hero-left {
+    position: relative;        /* overlay mela theriya */
+    z-index: 2;
+    width: 50%;
+    padding-left: 80px;
+}
+
+.hero-small {
+    font-size: 16px;
+    letter-spacing: 3px;
+    color: #cfd8f5;           /* light blue-white */
+    margin-bottom: 16px;
+}
+
+.hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 500;
+    letter-spacing: 10px;
+    line-height: 1;
+    margin-bottom: 24px;
+}
+
+.hero-desc {
+    max-width: 420px;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #e6ebfa;           /* light white */
+    margin-bottom: 36px;
+}
+
+.hero-button {
+    padding: 14px 36px;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* mouse vachaa white background, navy text */
+.hero-button:hover {
+    background-color: white;
+    color: #0a1230;
+}
+
+
+/* ---------- HERO RIGHT (cards) ---------- */
+.hero-right {
+    position: relative;
+    z-index: 2;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* cards ellam indha box kulla irukkum */
+.card-stack {
+    position: relative;
+    width: 640px;
+    height: 420px;
+}
+
+/* ovvoru card-oda common style */
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 220px;
+    height: 300px;
+    margin-top: -150px;       /* card-ah center-ku konduvara */
+    margin-left: -110px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    transition: transform 0.6s ease;   /* spread aagum bodhu smooth-ah */
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;        /* image stretch aagaama fit aagum */
+    display: block;
+}
+
+/* center card - straight, mela irukkum */
+.card-center {
+    z-index: 3;
+}
+
+/* left card - konjam left-ku saanjirukkum */
+.card-left {
+    z-index: 1;
+    transform: translateX(-40px) rotate(-8deg);
+}
+
+/* right card - konjam right-ku saanjirukkum */
+.card-right {
+    z-index: 2;
+    transform: translateX(40px) rotate(8deg);
+}
+
+/* ---------- HOVER - cards spread aagum ---------- */
+.card-stack:hover .card-left {
+    transform: translateX(-200px) rotate(-14deg);
+}
+
+.card-stack:hover .card-right {
+    transform: translateX(200px) rotate(14deg);
+}
+
+.card-stack:hover .card-center {
+    transform: translateY(-15px);     /* center card konjam mela ezhumbum */
+}
+
+
+/* =====================================================
+   ABOUT SECTION (perusa heading + content + 3 cards)
+   ===================================================== */
+.about {
+    padding: 120px 60px;
+    text-align: center;
+    background: linear-gradient(135deg, #1e120b, #884511);   /* hero la use panna dark brown -> orange brown */
+}
+
+/* perusa heading */
+.about-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 96px;
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+}
+
+.about-text {
+    max-width: 680px;
+    margin: 0 auto 70px auto;     /* center la irukka */
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #f0e2d4;
+}
+
+/* 3 cards oru row la */
+.note-cards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+/* ovvoru card-oda common style */
+.note-card {
+    width: 300px;
+    padding: 40px 30px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 18px;
+    text-align: left;
+    transition: transform 0.4s ease;
+}
+
+.note-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+.note-card p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #f0e2d4;
+}
+
+/* left card konjam left-ku saanjirukkum */
+.note-left {
+    transform: rotate(-4deg);
+}
+
+/* center card konjam mela irukkum */
+.note-center {
+    transform: translateY(-25px);
+}
+
+/* right card konjam right-ku saanjirukkum */
+.note-right {
+    transform: rotate(4deg);
+}
+
+/* mouse vachaa card straight-ah aagi mela ezhumbum */
+.note-card:hover {
+    transform: translateY(-15px) rotate(0deg);
+}
+
+
+/* =====================================================
+   COLLECTION SECTION (cards left / right nagarum)
+   ===================================================== */
+.collection {
+    padding: 100px 0;               /* left right 0 - cards screen full-ah nagarum */
+    background: linear-gradient(90deg, #1e120b, #884511);   /* hero la use panna same dark brown -> orange brown */
+    overflow: hidden;
+}
+
+.collection-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* ovvoru row - athukku veliya cards theriyaadhu */
+.slider-row {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+/* cards ellam oru line la - max-content = ellam serndha full width */
+.slider-track {
+    display: flex;
+    width: max-content;
+}
+
+/* top row left pakkam, bottom row right pakkam */
+.slide-left {
+    animation: move-left 30s linear infinite;
+}
+
+.slide-right {
+    animation: move-right 30s linear infinite;
+}
+
+/* mouse vachaa nagardhu nikkum */
+.slider-row:hover .slider-track {
+    animation-play-state: paused;
+}
+
+/* LEFT pakkam nagara (half dhooram poitu thirumba aarambikkum) */
+@keyframes move-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+/* RIGHT pakkam nagara */
+@keyframes move-right {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* ovvoru slide card */
+.slide-card {
+    width: 260px;
+    height: 340px;
+    margin-right: 24px;             /* cards naduvula gap (gap use panna loop gap varum, so margin) */
+    flex-shrink: 0;                 /* card chinnadhaagaama irukka */
+    border-radius: 18px;
+    overflow: hidden;
+    background-color: #3a2314;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.slide-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* =====================================================
+   STORY SECTION (parallax - image angaye nikkum)
+   ===================================================== */
+.parallax {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;   /* idhu thaan parallax - scroll pannaalum image nikkum */
+}
+
+/* 1st screen - heading + few lines */
+.parallax-first {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 24px;
+    text-align: center;
+}
+
+/* chinna heading */
+.parallax-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.parallax-text {
+    max-width: 560px;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #f0e2d4;
+}
+
+/* 2nd screen - scroll pannum bodhu image mela varum */
+.parallax-next {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 24px;
+}
+
+.parallax-box {
+    max-width: 520px;
+    padding: 50px 40px;
+    background-color: rgba(30, 18, 11, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 18px;
+    text-align: center;
+}
+
+.parallax-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.parallax-box p {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: #f0e2d4;
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   STORY SECTION (left image, right headings + paragraphs)
+   ===================================================== */
+.story {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    padding: 120px 80px;
+    background-color: #fafafb;       /* body colour */
+    color: #1e120b;                  /* dark brown text */
+}
+
+/* left image */
+.story-image {
+    width: 45%;
+    height: 640px;
+    object-fit: cover;               /* image stretch aagaama fit aagum */
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(30, 18, 11, 0.35);
+}
+
+/* right side */
+.story-content {
+    width: 50%;
+}
+
+.story-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 40px;
+}
+
+.story-item {
+    margin-bottom: 32px;
+}
+
+/* chinna heading */
+.story-item h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #884511;                  /* orange brown */
+    margin-bottom: 8px;
+}
+
+.story-item p {
+    max-width: 520px;
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #4a3a2e;
+}
+
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+.footer {
+    padding: 80px 80px 30px 80px;
+    background-color: #1e120b;       /* dark brown */
+}
+
+/* brand + brands + links oru row la - 3 equal columns, appo thaan Brands exact center la varum */
+.footer-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px;
+}
+
+/* Brands column - page center la, text-um center la */
+.footer-brands {
+    justify-self: center;
+    text-align: center;
+}
+
+/* Quick Links column - right side la */
+.footer-quick {
+    justify-self: end;
+}
+
+.footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: 8px;
+}
+
+/* PERFUME keela slogan */
+.footer-slogan {
+    margin-top: 8px;
+    margin-bottom: 28px;
+    font-size: 17px;
+    font-weight: 300;
+    color: #f0e2d4;
+}
+
+/* instagram maari logos */
+.social-icons {
+    display: flex;
+    gap: 16px;
+}
+
+.social-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.social-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* mouse vachaa white circle, brown logo */
+.social-icon:hover {
+    background-color: white;
+    color: #1e120b;
+}
+
+/* Brands and Quick Links columns */
+.footer-column h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 18px;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #f0e2d4;
+}
+
+.footer-column a {
+    color: #f0e2d4;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-column a:hover {
+    color: white;
+}
+
+/* Brands column - heading-um names-um rendume exact center la */
+.footer-column.footer-brands h4,
+.footer-column.footer-brands li {
+    text-align: center;
+}
+
+/* Quick Links column - heading-um links-um rendume left la straight-ah */
+.footer-column.footer-quick h4,
+.footer-column.footer-quick li {
+    text-align: left;
+}
+
+/* kadaisi copyright line */
+.footer-bottom {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    font-size: 14px;
+    color: #cdbba9;
+}
+
+
+/* =====================================================
+   CONTACT FORM POPUP
+   ===================================================== */
+/* full screen dark background */
+.modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;                    /* ella section-um mela theriya */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+/* form box */
+.modal-box {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    padding: 44px 36px;
+    background-color: #1e120b;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 18px;
+}
+
+.modal-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    margin-bottom: 22px;
+}
+
+/* mela right corner la close button */
+.modal-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* name, email, message ellathukum */
+.form-input {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    color: white;
+    font-family: 'Jost', sans-serif;
+    font-size: 15px;
+    outline: none;
+}
+
+.form-input::placeholder {
+    color: #cdbba9;
+}
+
+/* type pannum bodhu border white aagum */
+.form-input:focus {
+    border-color: white;
+}
+
+.form-message {
+    height: 120px;
+    resize: none;
+}
+
+.form-button {
+    width: 100%;
+}
+
+/* anuppitta aprama thank you */
+.modal-thanks {
+    text-align: center;
+}
+
+.modal-thanks p {
+    margin-bottom: 26px;
+    color: #f0e2d4;
+}
+
+
+/* ---------- MOBILE / SMALL SCREEN ---------- */
+@media (max-width: 900px) {
+
+    .navbar {
+        padding: 20px 24px;
+    }
+
+    .nav-links {
+        gap: 16px;
+    }
+
+    .hero {
+        flex-direction: column;
+        justify-content: center;
+        height: auto;
+        min-height: 100vh;
+        padding: 120px 0 60px 0;
+    }
+
+    .hero-left {
+        width: 100%;
+        padding: 0 24px;
+        text-align: center;
+    }
+
+    .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-title {
+        font-size: 64px;
+        letter-spacing: 6px;
+    }
+
+    .hero-right {
+        width: 100%;
+        margin-top: 50px;
+    }
+
+    .card-stack {
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .card-stack:hover .card-left {
+        transform: translateX(-90px) rotate(-14deg);
+    }
+
+    .card-stack:hover .card-right {
+        transform: translateX(90px) rotate(14deg);
+    }
+
+    /* about section */
+    .about {
+        padding: 80px 24px;
+    }
+
+    .about-heading {
+        font-size: 48px;
+    }
+
+    .note-cards {
+        flex-direction: column;
+    }
+
+    .note-card {
+        width: 100%;
+        max-width: 340px;
+    }
+
+    /* collection section */
+    .collection-heading {
+        font-size: 40px;
+    }
+
+    .slide-card {
+        width: 200px;
+        height: 270px;
+    }
+
+    /* story section */
+    .story {
+        flex-direction: column;
+        gap: 40px;
+        padding: 80px 24px;
+    }
+
+    .story-image {
+        width: 100%;
+        height: 380px;
+    }
+
+    .story-content {
+        width: 100%;
+    }
+
+    .story-heading {
+        font-size: 48px;
+    }
+
+    /* footer */
+    .footer {
+        padding: 60px 24px 24px 24px;
+    }
+
+    .footer-top {
+        grid-template-columns: 1fr;       /* mobile la ellam keela keela */
+        gap: 40px;
+    }
+
+    .footer-brands {
+        justify-self: start;
+        text-align: left;
+    }
+
+    .footer-column.footer-brands h4,
+    .footer-column.footer-brands li {
+        text-align: left;
+    }
+
+    .footer-quick {
+        justify-self: start;
+    }
+
+    /* mobile la fixed background work aagaadhu, so normal-ah vechukkalam */
+    .parallax {
+        background-attachment: scroll;
+    }
+}
